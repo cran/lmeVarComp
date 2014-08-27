@@ -1,0 +1,7 @@
+useDynLib(lmeVarComp)
+export(rlr.test)
+export(pseudo.rlr.test)
+export(score.test)
+export(mnls)
+export(test.varcomp)
+export(test.additivity)
