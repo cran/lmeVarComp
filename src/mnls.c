@@ -4,8 +4,6 @@
 #include <R_ext/Lapack.h>
 
 
-
-
 /**
   * Computes the minimum-norm least squares solution
   * A: predictor matrix, m by n
@@ -19,7 +17,8 @@
   * rank: estimated rank of A
   */
 
-void mnls(double *A, double *B, double *X,
+void mnls(
+    double *A, double *B, double *X,
     const int *_m, const int *_n, const int *_nrhs,
     const double *_rcond, int *_rank)
 {
@@ -59,6 +58,4 @@ void mnls(double *A, double *B, double *X,
     free(work);
     free(jpvt);
 }
-
-
 

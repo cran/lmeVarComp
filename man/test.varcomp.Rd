@@ -5,12 +5,11 @@ Testing Zero Variance Components in Linear Mixed Models
 }
 \description{
 \code{test.varcomp} tests whether certain variance components are zeros.
-  This function provides a formula interface to the \code{rlr.test},
-  \code{pseudo.rlr.test}, and \code{score.test} functions.
+  This function provides a formula interface to the \code{rlr.test} function.
 }
 \usage{
 test.varcomp(fixed, random, test, data = NULL, Sigma = NULL, 
-  type = c("RLR", "pseudo", "score"), nsim = 5000L, seed = 130623L, 
+  type = "RLR", nsim = 5000L, seed = 130623L, 
   keep.matrices = FALSE)
 }
 \arguments{
@@ -33,11 +32,7 @@ test.varcomp(fixed, random, test, data = NULL, Sigma = NULL,
   If \code{NULL}, default to identity matrices.
   }
   \item{type}{
-  test to be performed:
-  \code{RLR} for restricted likelihood ratio test and generalized F-test,
-  \code{pseudo} for pseudo restricted likelihood ratio test assuming
-    the variance components of interest are equal,
-  and \code{score} for linear score test.
+  \code{RLR} for restricted likelihood ratio test and generalized F-test
   }
   \item{nsim}{
   number of simulations from the null distribution. 
@@ -52,18 +47,10 @@ test.varcomp(fixed, random, test, data = NULL, Sigma = NULL,
 }
 \value{
 A list containing the following components:
-  \item{RLRT}{If \code{type} is \code{RLR}, 
-    a vector of the test statistic and the p-value of 
+  \item{RLRT}{A vector of the test statistic and the p-value of 
     restricted likelihood ratio test.}
-  \item{GFT}{If \code{type} is \code{RLR}, 
-    a vector of the test statistic and the p-value of 
+  \item{GFT}{A vector of the test statistic and the p-value of 
     generalized F-test.}
-  \item{pseudo}{If \code{type} is \code{pseudo}, 
-    a vector of the test statistic and the p-value of 
-    pseudo restricted likelihood ratio test.}
-  \item{score}{If \code{type} is \code{score}, 
-    a vector of the test statistic and the p-value of 
-    linear score test.}
   \item{Y}{If \code{keep.matrices} is \code{TRUE}, the response.}
   \item{X}{If \code{keep.matrices} is \code{TRUE}, the fixed effects design matrix.}
   \item{Z}{If \code{keep.matrices} is \code{TRUE}, a list of the random effects design matrices.}
@@ -72,8 +59,11 @@ A list containing the following components:
 \author{
 Yichi Zhang
 }
+\references{
+Zhang, Y., Staicu, A.-M., and Maity, A. (2016). Testing for additivity in non-parametric regression. Canadian Journal of Statistics, 44: 445-462. \doi{10.1002/cjs.11295}
+}
 \seealso{
-\code{\link{rlr.test}}, \code{\link{pseudo.rlr.test}}, \code{\link{score.test}}
+\code{\link{rlr.test}}
 }
 \examples{
 n1 <- 5L

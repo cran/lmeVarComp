@@ -3,35 +3,30 @@
 \alias{lmeVarComp-package}
 \docType{package}
 \title{
-Testing for a Subset of Variance Components in Linear Mixed Models
+\packageTitle{lmeVarComp}
 }
 \description{
-This package provides functions to
-  test zero variance components in linear mixed models and 
-  test additivity in nonparametric regression,
-  using the restricted likelihood ratio test and the generalized F-test.
+\packageDescription{lmeVarComp}
 }
 \details{
-  \tabular{ll}{
-  Package: \tab lmeVarComp\cr
-  Type: \tab Package\cr
-  Version: \tab 1.0\cr
-  Date: \tab 2014-08-27\cr
-  License: \tab GPL (>= 2)\cr
-  }
+  The DESCRIPTION file:
+  \packageDESCRIPTION{lmeVarComp}
+  \packageIndices{lmeVarComp}
   The main functions are: 
   \itemize{
-  \item \code{\link{test.varcomp}} and \code{\link{rlr.test}} 
+  \item \code{\link{rlr.test}} 
     for testing zero variance components in linear mixed models.
   \item \code{\link{test.additivity}} 
     for testing additivity in nonparametric regression.
+  \item \code{\link{test.varcomp}}
+    for testing zero variance components in balanced ANOVA models.
   }
 }
 \author{
-Yichi Zhang
+\packageAuthor{lmeVarComp}
 
-Maintainer: Yichi Zhang <yzhang52@ncsu.edu>
+Maintainer: \packageMaintainer{lmeVarComp}
 }
 \references{
-Zhang, Y., Staicu, A.-M., and Maity, A. (2014). Testing for a Subset of Variance Components in Linear Mixed Models with Application to Testing for Additivity. Submitted.
+Zhang, Y., Staicu, A.-M., and Maity, A. (2016). Testing for additivity in non-parametric regression. Canadian Journal of Statistics, 44: 445-462. \doi{10.1002/cjs.11295}
 }

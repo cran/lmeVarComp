@@ -62,55 +62,65 @@ function(Y, X, Z, Sigma, m0, nsim = 5000L, seed = 130623L)
     b <- c(1.0, 0.0, 1.0, 0.0)
   }
   
+  Ytilde2 <- copy_vector(Ytilde2, "double")
+  D <- copy_matrix(D, "double")
+  S0 <- copy_matrix(S0, "double")
+  S1 <- copy_matrix(S1, "double")
+  tau0 <- copy_vector(tau0, "double")
+  tau1 <- copy_vector(tau1, "double")
+  rlrt_obs <- double(1L)
+  rlrt_sim <- double(nsim)
+  gft_obs <- double(1L)
+  gft_sim <- double(nsim)
+  n <- as.integer(n)
+  p <- as.integer(p)
+  m0 <- as.integer(m0)
+  m1 <- as.integer(m1)
+  nsim <- as.integer(nsim)
+  tol <- as.double(tol)
+  b <- as.double(b)
+  
   set.seed(seed)
   if (m0 >= 1L) {
-    result <- .C("rlrt1", Ytilde2 = as.double(Ytilde2), D = as.double(D), 
-      S0 = as.double(S0), S1 = as.double(S1),
-      tau0 = as.double(tau0), tau1 = as.double(tau1),
-      rlrt_obs = double(1L), rlrt_sim = double(nsim),
-      gft_obs = double(1L), gft_sim = double(nsim),
-      n = as.integer(n), p = as.integer(p), 
-      m0 = as.integer(m0), m1 = as.integer(m1), nsim = as.integer(nsim),
-      tol = as.double(tol), b = as.double(b),
-      DUP = TRUE)
+    .Call(
+	  R_rlrt1, 
+	  Ytilde2, D, S0, S1, tau0, tau1,
+      rlrt_obs, rlrt_sim, gft_obs, gft_sim,
+	  n, p, m0, m1, nsim, tol, b,
+      PACKAGE = "lmeVarComp")
   } else {
-    result <- .C("rlrt0", Ytilde2 = as.double(Ytilde2), D = as.double(D), 
-      S1 = as.double(S1),
-      tau1 = as.double(tau1),
-      rlrt_obs = double(1L), rlrt_sim = double(nsim),
-      gft_obs = double(1L), gft_sim = double(nsim),
-      n = as.integer(n), p = as.integer(p), 
-      m1 = as.integer(m1), nsim = as.integer(nsim),
-      tol = as.double(tol), b = as.double(b),
-      DUP = TRUE)
-    result$tau0 <- double(0L)
+    .Call(
+	  R_rlrt0, 
+	  Ytilde2, D, S1, tau1,
+      rlrt_obs, rlrt_sim, gft_obs, gft_sim,
+	  n, p, m1, nsim, tol, b,
+      PACKAGE = "lmeVarComp")
   }
   
   # point estimates, test statistics and p-values
   j0 <- seq_len(m0)
   nmp <- n - p
-  eps0 <- sum(Ytilde2 / (1 + D[, j0, drop = FALSE] %*% result$tau0)) / nmp
-  eps1 <- sum(Ytilde2 / (1 + D %*% result$tau1)) / nmp
-  H0.estimate <- c(result$tau0 * scaling[j0] * eps0, eps0)
-  H1.estimate <- c(result$tau1 * scaling * eps1, eps1)
+  eps0 <- sum(Ytilde2 / (1 + D[, j0, drop = FALSE] %*% tau0)) / nmp
+  eps1 <- sum(Ytilde2 / (1 + D %*% tau1)) / nmp
+  H0.estimate <- c(tau0 * scaling[j0] * eps0, eps0)
+  H1.estimate <- c(tau1 * scaling * eps1, eps1)
   
-  rlrt_obs <- result$rlrt_obs
-  gft_obs <- result$gft_obs
   if (nsim >= 1L) {
     if (((rlrt_obs > b[1L]) && (rlrt_obs < b[2L]))
       || ((gft_obs > b[3L]) && (gft_obs < b[4L]))) {
-      rlrt_pv <- mean(result$rlrt_sim >= rlrt_obs)
-      gft_pv <- mean(result$gft_sim >= gft_obs)
+      rlrt_pv <- mean(rlrt_sim >= rlrt_obs)
+      gft_pv <- mean(gft_sim >= gft_obs)
     } else {
       rlrt_pv <- (rlrt_obs <= b[1L]) * 1 + (rlrt_obs >= b[2L]) * 0
       gft_pv <- (gft_obs <= b[3L]) * 1 + (gft_obs >= b[4L]) * 0
     }
   } else {
-    rlrt_pv <- NA
-    gft_pv <- NA
+    rlrt_pv <- NA_real_
+    gft_pv <- NA_real_
   }
 
-  list("RLRT" = c(stat.obs = rlrt_obs, p.value = rlrt_pv),
+  list(
+    "RLRT" = c(stat.obs = rlrt_obs, p.value = rlrt_pv),
     "GFT" = c(stat.obs = gft_obs, p.value = gft_pv),
     H0.estimate = H0.estimate, H1.estimate = H1.estimate)
 }

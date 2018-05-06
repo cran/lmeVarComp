@@ -10,8 +10,6 @@
 #include "projected_bfgs.h"
 
 
-
-
 /**
   * Simulate samples from null distributions of RLRT and GFT when m0 >= 1.
   * Ytilde2: vector, of length (n - p)
@@ -38,13 +36,12 @@
   *    for not performing simulation
   */
 
-void rlrt1(double *Ytilde2, const double *D,
-    const double *S0, const double *S1,
-    double *tau0, double *tau1,
+void rlrt1(
+    double *Ytilde2, const double *D,
+    const double *S0, const double *S1, double *tau0, double *tau1,
     double *rlrt_obs, double *rlrt_sim,
     double *gft_obs, double *gft_sim,
-    int *_n, int *_p,
-    int *_m0, int *_m1, int *_nsim,
+    int *_n, int *_p, int *_m0, int *_m1, int *_nsim,
     double *_tol, double *_b)
 {
     const int n = *_n, p = *_p;
@@ -180,6 +177,4 @@ void rlrt1(double *Ytilde2, const double *D,
 
     free(work0);
 }
-
-
 

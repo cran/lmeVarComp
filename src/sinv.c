@@ -4,8 +4,6 @@
 #include <R_ext/Lapack.h>
 
 
-
-
 /**
   * Computes the inverse of a symmetric matrix
   * A: symmetric matrix, n by n
@@ -42,6 +40,4 @@ void sinv(double *A, const int *_n)
     free(work);
     free(ipiv);
 }
-
-
 

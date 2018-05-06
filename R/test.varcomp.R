@@ -1,6 +1,6 @@
 test.varcomp <-
 function(fixed, random, test, data = NULL, Sigma = NULL, 
-  type = c("RLR", "pseudo", "score"), nsim = 5000L, seed = 130623L,
+  type = "RLR", nsim = 5000L, seed = 130623L,
   keep.matrices = FALSE)
 {
   type <- match.arg(type)
@@ -31,15 +31,7 @@ function(fixed, random, test, data = NULL, Sigma = NULL,
   Sigma <- c(Sigma[-test], Sigma[test])
   m0 <- length(Z) - length(test)
   
-  if (type == "RLR") {
-    result <- rlr.test(Y, X, Z, Sigma, m0, nsim, seed)
-  } else if (type == "pseudo") {
-    result <- pseudo.rlr.test(Y, X, Z, Sigma, m0, nsim, seed)
-    result <- list(pseudo = result)
-  } else if (type == "score") {
-    result <- score.test(Y, X, Z, Sigma, m0)
-    result <- list(score = result)
-  }
+  result <- rlr.test(Y, X, Z, Sigma, m0, nsim, seed)
 
   if (keep.matrices) {
     result$Y <- Y

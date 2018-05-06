@@ -50,14 +50,11 @@ A list containing the following components:
   \item{H1.estimate}{REML estimate of variance components 
     (including the error term) under the alternative hypothesis.}
 }
-\references{
-Zhang, Y., Staicu, A.-M., and Maity, A. (2014). Testing for a Subset of Variance Components in Linear Mixed Models with Application to Testing for Additivity. Submitted.
-}
 \author{
 Yichi Zhang
 }
-\seealso{
-\code{\link{pseudo.rlr.test}}, \code{\link{score.test}}
+\references{
+Zhang, Y., Staicu, A.-M., and Maity, A. (2016). Testing for additivity in non-parametric regression. Canadian Journal of Statistics, 44: 445-462. \doi{10.1002/cjs.11295}
 }
 \examples{
 # two-way random effects ANOVA

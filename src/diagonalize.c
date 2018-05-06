@@ -4,8 +4,6 @@
 #include <R_ext/Lapack.h>
 
 
-
-
 /**
   * Performs simultaneous diagonalization
   * A: k matrices of size p by p to be simultaneously diagonalized,
@@ -18,7 +16,8 @@
   * fail: equal to 0 if successful
   */
 
-void diagonalize(double *A, const int *_p, const int *_k,
+void diagonalize(
+    double *A, const int *_p, const int *_k,
     const double *_tol, double *D, int *fail)
 {
     const int p = *_p, k = *_k;
@@ -115,6 +114,4 @@ void diagonalize(double *A, const int *_p, const int *_k,
     free(jump);
     free(work);
 }
-
-
 

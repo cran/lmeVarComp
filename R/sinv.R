@@ -1,10 +1,7 @@
-sinv <-
-function(x)
+sinv <- function(x)
 {
-  n <- ncol(x)
-  
-  result <- .C("sinv", x = as.double(x), n = as.integer(n),
-    DUP = TRUE)
-  
-  matrix(result$x, n, n)
+  x <- copy_matrix(x, "double")
+  n <- as.integer(ncol(x))
+  .Call(R_sinv, x, n, PACKAGE = "lmeVarComp")
+  matrix(x, n, n)
 }

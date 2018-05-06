@@ -8,7 +8,7 @@ Testing Additivity in Nonparametric Regression
   using mixed model representation and variance components testing.
 }
 \usage{
-test.additivity(x, y, type = c("RLR", "pseudo", "score"), 
+test.additivity(x, y, type = "RLR", 
   nbasis = 10L, kernel = c("gaussian", "polynomial", "spline"),
   nsim = 5000L, seed = 130623L)
 }
@@ -20,11 +20,7 @@ test.additivity(x, y, type = c("RLR", "pseudo", "score"),
   response vector.
   }
   \item{type}{
-  test to be performed:
-  \code{RLR} for restricted likelihood ratio test and generalized F-test,
-  \code{pseudo} for pseudo restricted likelihood ratio test assuming
-    the variance components of interest are equal,
-  and \code{score} for linear score test.
+  \code{RLR} for restricted likelihood ratio test and generalized F-test
   }
   \item{nbasis}{
   number of basis functions in additive modeling.
@@ -42,11 +38,14 @@ test.additivity(x, y, type = c("RLR", "pseudo", "score"),
 \value{
 A vector of test statistic and p-value.
 }
-\references{
-Zhang, Y., Staicu, A.-M., and Maity, A. (2014). Testing for a Subset of Variance Components in Linear Mixed Models with Application to Testing for Additivity. Submitted.
-}
 \author{
 Yichi Zhang
+}
+\references{
+Zhang, Y., Staicu, A.-M., and Maity, A. (2016). Testing for additivity in non-parametric regression. Canadian Journal of Statistics, 44: 445-462. \doi{10.1002/cjs.11295}
+}
+\seealso{
+\code{\link{rlr.test}}
 }
 \examples{
 set.seed(20L)

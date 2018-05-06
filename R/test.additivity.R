@@ -1,5 +1,5 @@
 test.additivity <-
-function(x, y, type = c("RLR", "pseudo", "score"),
+function(x, y, type = "RLR",
   nbasis = 10L, kernel = c("gaussian", "polynomial", "spline"),
   nsim = 5000L, seed = 130623L)
 {
@@ -38,16 +38,10 @@ function(x, y, type = c("RLR", "pseudo", "score"),
   # tests zero variance component
   Z <- list(Z1, Z2, Z3)
   Sigma <- list(Sigma1, Sigma2, Sigma3)
-  if (type == "RLR") {
-    result <- rlr.test(Y, X, Z, Sigma, 1L, nsim, seed)
-    result <- c(result$RLRT, result$GFT)
-    names(result) <- c("RLRT.stat.obs", "RLRT.p.value", 
-      "GFT.stat.obs", "GFT.p.value")
-  } else if (type == "pseudo") {
-    result <- pseudo.rlr.test(Y, X, Z, Sigma, 1L, nsim, seed)
-  } else if (type == "score") {
-    result <- score.test(Y, X, Z, Sigma, 1L)
-  }
+  result <- rlr.test(Y, X, Z, Sigma, 1L, nsim, seed)
+  result <- c(result$RLRT, result$GFT)
+  names(result) <- c("RLRT.stat.obs", "RLRT.p.value", 
+    "GFT.stat.obs", "GFT.p.value")
 
   # returns results
   result
